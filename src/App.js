@@ -128,7 +128,7 @@ const App = () => {
                 <div className="bg-white dark:bg-gray-900 shadow-md rounded-lg p-6 animate-fade-in-up">
                   <WeatherForecast weatherData={weatherData.list} />
                   <p className="text-sm text-gray-500 dark:text-gray-400 mt-4">
-                    This section provides a 5-day weather forecast with
+                    This section provides a weather forecast with
                     temperature and weather conditions.
                   </p>
                 </div>
