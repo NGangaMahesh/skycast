@@ -30,11 +30,9 @@ const App = () => {
         } else {
           // Postal code
           url = `https://api.openweathermap.org/data/2.5/forecast?zip=${trimmedQuery},in&appid=${apiKey}&units=metric&cnt=9`;
-          console.log('12')
         }
 
         const response = await axios.get(url);
-        console.log(response)
         setWeatherData(response.data);
       } catch (error) {
         console.error(error);
