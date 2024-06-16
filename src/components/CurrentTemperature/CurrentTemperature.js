@@ -13,7 +13,7 @@ const CurrentTemperature = ({ weatherData }) => {
   const Icon = icons[weatherIcon];
 
   return (
-    <div className="bg-gradient-to-r from-sky-500 to-blue-700 p-6 rounded-lg shadow-lg text-white max-w-md mx-auto animate-fade-in">
+    <div className="bg-gradient-to-r from-sky-500 to-blue-700 p-6 rounded-lg shadow-lg text-white max-w-md mx-auto animate-fade-in pr-2">
       <p className="text-xl font-bold">{cityName}</p>
       <div className="flex items-center mb-6">
         <div className="w-1/3">
