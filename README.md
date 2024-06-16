@@ -63,3 +63,22 @@ The application is structured as follows:
 3. **WeatherForecast Component**: This component displays the weather forecast for the upcoming days. It uses a grid layout to show multiple forecasts and provides detailed weather information for each day.
 
 4. **Dark Mode Toggle**: A simple toggle switch to switch between light and dark modes. This improves the visual experience, especially in low-light environments.
+
+   To add deployment information to your README file, you can provide details about where your project is deployed and how others can access it. Here’s a basic template to include deployment information:
+
+### Deployment
+
+The project is deployed and can be accessed [here](https://skycast-git-main-ganga-maheshs-projects.vercel.app/).
+
+### How to Access
+
+To access the deployed project:
+
+1. Simply click on the following link: [SkyCast Deployment](https://skycast-git-main-ganga-maheshs-projects.vercel.app/).
+2. Ensure you have a stable internet connection.
+3. Enjoy using the application!
+
+### Additional Information
+
+- **Deployment Platform**: Vercel
+- **Deployment Status**: Live
