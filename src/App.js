@@ -2,30 +2,42 @@ import React, { useState, useEffect } from "react";
 import { DarkModeToggle } from "react-dark-mode-toggle-2";
 import CurrentTemperature from "./components/CurrentTemperature/CurrentTemperature.js";
 import WeatherForecast from "./components/WeatherForecast/WeatherForecast.js";
-import "./App.css"; // Assuming styles for animations and additional details are defined here
+import "./App.css";
+import fixingImage from "./assets/fixing.png";
 import axios from "axios";
 
 const App = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [weatherData, setWeatherData] = useState(null);
-  const [cityQuery, setCityQuery] = useState("");
+  const [query, setQuery] = useState("");
   const [error, setError] = useState(null);
-  const apiKey = process.env.REACT_APP_OPENWEATHERMAP_API_KEY; // Adjusted for React environment variables
-  console.log(apiKey)
+  const apiKey = process.env.REACT_APP_OPENWEATHERMAP_API_KEY;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (cityQuery.trim() !== "") {
+    if (query.trim() !== "") {
       try {
         setWeatherData(null); // Clear previous weather data
         setError(null); // Clear any previous error
 
-        const cityName = cityQuery.trim();
-        const url = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}&units=metric&cnt=10`;
+        const trimmedQuery = query.trim();
+        
+        let url;
+        // Determine if the query is a city name or postal code
+        if (isNaN(trimmedQuery)) {
+          url = `https://api.openweathermap.org/data/2.5/forecast?q=${trimmedQuery}&appid=${apiKey}&units=metric&cnt=10`;
+          // City name
+        } else {
+          // Postal code
+          url = `https://api.openweathermap.org/data/2.5/forecast?zip=${trimmedQuery},in&appid=${apiKey}&units=metric&cnt=9`;
+          console.log('12')
+        }
+
         const response = await axios.get(url);
+        console.log(response)
         setWeatherData(response.data);
       } catch (error) {
-        console.error("Error fetching weather data:", error);
+        console.error(error);
         setError("Error fetching weather data. Please try again.");
         setWeatherData(null);
       }
@@ -52,7 +64,8 @@ const App = () => {
           <a
             href="/"
             className="text-blue-400 dark:text-blue-300 text-2xl font-bold flex items-center"
-          >Sky<span className="text-gray-800 dark:text-gray-200">Cast</span>
+          >
+            Sky<span className="text-gray-800 dark:text-gray-200">Cast</span>
           </a>
           <DarkModeToggle
             onChange={setIsDarkMode}
@@ -67,9 +80,9 @@ const App = () => {
             <div className="flex items-center border border-gray-300 dark:border-gray-700 rounded-lg overflow-hidden">
               <input
                 type="text"
-                value={cityQuery}
-                onChange={(e) => setCityQuery(e.target.value)}
-                placeholder="Enter city name..."
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Enter city name or postal code..."
                 className="w-full py-3 px-4 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 outline-none"
               />
               <button
@@ -94,7 +107,14 @@ const App = () => {
             </div>
           </form>
 
-          {error && <p className="text-red-500 mt-2">{error}</p>}
+          {error && (
+            <div className="text-center mt-8">
+              <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 max-w-md mx-auto">
+                <img src={fixingImage} alt="Error" className="mx-auto mb-4 w-20 h-20" />
+                <p className="text-red-500 dark:text-red-400 text-lg font-semibold">{error}</p>
+              </div>
+            </div>
+          )}
           {weatherData ? (
             <>
               <section className="mt-8">
@@ -110,16 +130,20 @@ const App = () => {
                 <div className="bg-white dark:bg-gray-900 shadow-md rounded-lg p-6 animate-fade-in-up">
                   <WeatherForecast weatherData={weatherData.list} />
                   <p className="text-sm text-gray-500 dark:text-gray-400 mt-4">
-                    This section provides the weather forecast for the upcoming
-                    days.
+                    This section provides a 5-day weather forecast with
+                    temperature and weather conditions.
                   </p>
                 </div>
               </section>
             </>
           ) : (
-            <p className="text-gray-600 dark:text-gray-400 mt-8 text-center">
-              Enter a city name to search for weather data.
-            </p>
+            !error && (
+              <div className="text-center mt-8">
+                <p className="text-gray-500 dark:text-gray-400">
+                  Please enter a city name or postal code to get the weather forecast.
+                </p>
+              </div>
+            )
           )}
         </div>
       </main>

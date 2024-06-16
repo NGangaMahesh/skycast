@@ -1,5 +1,5 @@
 import React from 'react';
-import icons from "../../assets/assets.js";
+import {icons} from "../../assets/assets.js";
 
 const WeatherForecast = ({ weatherData }) => {
   return (
@@ -10,7 +10,7 @@ const WeatherForecast = ({ weatherData }) => {
           <h2 className="text-lg font-semibold text-blue-600 dark:text-blue-300">{formatDateTime(forecast.dt_txt)}</h2>
             {icons[forecast.weather[0].icon] && (
               <img
-                className="w-24 h-24"
+                className="w-28 h-28"
                 src={icons[forecast.weather[0].icon]}
                 alt={forecast.weather[0].description}
               />
@@ -49,7 +49,7 @@ const WeatherForecast = ({ weatherData }) => {
   );
 };
 
-// Function to format date and time from dt_txt
+// Function to format date and time 
 const formatDateTime = (dt_txt) => {
   const date = new Date(dt_txt);
   return `${date.toLocaleDateString(undefined, { weekday: 'short' })}, ${date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}`;

@@ -1,5 +1,6 @@
 // src/assets/openweathermap/iconMap.js
-const icons = {
+
+export const icons = {
     '01d': require('./01d.svg').default,
     '01n': require('./01n.svg').default,
     '02d': require('./02d.svg').default,
@@ -17,8 +18,6 @@ const icons = {
     '13d': require('./13d.svg').default,
     '13n': require('./13n.svg').default,
     '50d': require('./50d.svg').default,
-    '50n': require('./50n.svg').default
-  };
-  
-  export default icons;
-  
+    '50n': require('./50n.svg').default,
+};
+
